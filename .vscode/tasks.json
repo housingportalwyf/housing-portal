@@ -7,11 +7,11 @@
 			"command": "C:\\Program Files\\Git\\cmd\\git.exe -C \"${workspaceFolder}\" status --short",
 			"isBackground": false,
 			"problemMatcher": []
-		}
-	]
-			"label": "Search workspace for sensitive strings",
+		},
+		{
+			"label": "Commit and push cleaned tasks.json",
 			"type": "shell",
-			"command": "powershell -NoProfile -Command \"Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; $patterns = @('copilot@20030701','Housing@20030701','copilotwangyufengbee','housingportalwyf'); foreach ($p in $patterns) { Write-Host 'SEARCHING:' $p; $res = Get-ChildItem -Recurse -File -ErrorAction SilentlyContinue | Select-String -Pattern $p -SimpleMatch -List; if ($res) { $res | ForEach-Object { Write-Host ($_.Path + ':' + $_.LineNumber + ': ' + $_.Line.Trim()) } } else { Write-Host 'No matches for' $p } }\"",
+			"command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; $git='C:\\Program Files\\Git\\cmd\\git.exe'; & $git add .vscode/tasks.json; if (& $git diff --cached --name-only | Select-String -Quiet '\\.vscode/tasks.json') { & $git commit -m 'Sanitize .vscode/tasks.json: remove search task and sensitive strings' } else { Write-Host 'No staged changes for .vscode/tasks.json' }; & $git push origin main\"",
 			"isBackground": false
 		}
 	]
