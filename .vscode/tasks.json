@@ -133,6 +133,20 @@
 			"command": "$git='C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git add .vscode/tasks.json; & $git commit -m 'Update task config'",
 			"isBackground": false,
 			"problemMatcher": []
+		},
+		{
+			"label": "Push to GitHub",
+			"type": "shell",
+			"command": "$git='C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git remote remove origin 2>$null; & $git remote add origin 'https://github.com/[REDACTED-USER]/housing-portal.git'; & $git push -u origin main",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run GitHub push script",
+			"type": "shell",
+			"command": "powershell -ExecutionPolicy Bypass -File 'C:\\Users\\wangy\\Documents\\housing-portal\\[REMOVED]'",
+			"isBackground": false,
+			"problemMatcher": []
 		}
 	]
 }
