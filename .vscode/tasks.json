@@ -105,6 +105,34 @@
 			"command": "powershell -ExecutionPolicy Bypass -File 'C:\\Users\\wangy\\Documents\\housing-portal\\[REMOVED]'",
 			"isBackground": false,
 			"problemMatcher": []
+		},
+		{
+			"label": "Create GitHub repo and push",
+			"type": "shell",
+			"command": "$ErrorActionPreference='Stop'; $repoPath='C:\\Users\\wangy\\Documents\\housing-portal'; $git='C:\\Program Files\\Git\\cmd\\git.exe'; $username='[REDACTED-USER]'; $password='[REDACTED-PASSWORD]'; $repoName='housing-portal'; $repoOwner='[REDACTED-USER]'; $repoUrl='https://github.com/[REDACTED-USER]/housing-portal.git'; Set-Location $repoPath; $auth = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(\"$username:$password\")); $headers = @{ Authorization = \"Basic $auth\"; 'User-Agent' = 'PowerShell' }; try { $repoCheck = Invoke-RestMethod -Headers $headers -Uri \"https://api.github.com/repos/$repoOwner/$repoName\" -Method Get } catch { if ($_.Exception.Response.StatusCode.value__ -ne 404) { throw } }; if (-not $repoCheck) { $body = @{ name = $repoName; private = $false } | ConvertTo-Json; Invoke-RestMethod -Headers $headers -Uri 'https://api.github.com/user/repos' -Method Post -Body $body -ContentType 'application/json' | Out-Null }; & $git config user.name $username; & $git config user.email \"$username@users.noreply.github.com\"; & $git add .; & $git commit -m 'Add housing portal demo' 2>$null; & $git branch -M main; & $git remote remove origin 2>$null; & $git remote add origin $repoUrl; & $git remote set-url origin \"https://$username:$password@github.com/$repoOwner/$repoName.git\"; & $git push -u origin main",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Create GitHub repo and push",
+			"type": "shell",
+			"command": "$ErrorActionPreference='Stop'; $repoPath='C:\\Users\\wangy\\Documents\\housing-portal'; $git='C:\\Program Files\\Git\\cmd\\git.exe'; $username='[REDACTED-USER]'; $password='[REDACTED-PASSWORD]'; $repoName='housing-portal'; $repoOwner='[REDACTED-USER]'; $repoUrl='https://github.com/[REDACTED-USER]/housing-portal.git'; Set-Location $repoPath; $auth = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(\"${username}:${password}\")); $headers = @{ Authorization = \"Basic $auth\"; 'User-Agent' = 'PowerShell' }; try { $repoCheck = Invoke-RestMethod -Headers $headers -Uri \"https://api.github.com/repos/$repoOwner/$repoName\" -Method Get } catch { if ($_.Exception.Response.StatusCode.value__ -ne 404) { throw } }; if (-not $repoCheck) { $body = @{ name = $repoName; private = $false } | ConvertTo-Json; Invoke-RestMethod -Headers $headers -Uri 'https://api.github.com/user/repos' -Method Post -Body $body -ContentType 'application/json' | Out-Null }; & $git config user.name $username; & $git config user.email \"$username@users.noreply.github.com\"; & $git add .; & $git commit -m 'Add housing portal demo' 2>$null; & $git branch -M main; & $git remote remove origin 2>$null; & $git remote add origin $repoUrl; & $git remote set-url origin \"https://${username}:${password}@github.com/$repoOwner/$repoName.git\"; & $git push -u origin main",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect git state",
+			"type": "shell",
+			"command": "$git='C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git status --short; Write-Host '---'; & $git branch --show-current; Write-Host '---'; & $git log --oneline -1",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Commit final tweaks",
+			"type": "shell",
+			"command": "$git='C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git add .vscode/tasks.json; & $git commit -m 'Update task config'",
+			"isBackground": false,
+			"problemMatcher": []
 		}
 	]
 }
