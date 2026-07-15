@@ -10,14 +10,21 @@ import ExportButtons from '@/components/ExportButtons';
 export default function MarketPage() {
   const { summary, predictWhatIf, loading, fetchSummary } = useMarketAnalysis();
   const [params, setParams] = useState({ region: 1, bedrooms: 3, sqft: 2200 });
+  const [whatIfResult, setWhatIfResult] = useState<number | null>(null);
+  const [whatIfLoading, setWhatIfLoading] = useState(false);
 
   useEffect(() => {
     fetchSummary('all');
   }, [fetchSummary]);
 
   const handleWhatIf = async (changes: Record<string, number>) => {
-    const result = await predictWhatIf(params, changes);
-    console.log('New predicted price:', result.newPrice);
+    setWhatIfLoading(true);
+    try {
+      const result = await predictWhatIf(params, changes);
+      setWhatIfResult(result.newPrice);
+    } finally {
+      setWhatIfLoading(false);
+    }
   };
 
   return (
@@ -55,8 +62,11 @@ export default function MarketPage() {
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-slate-900/80 p-6">
-          <WhatIfTool onCalculate={handleWhatIf} loading={loading} />
+          <WhatIfTool onCalculate={handleWhatIf} loading={whatIfLoading} />
           {loading ? <p className="mt-3 text-sm text-slate-300">Refreshing market data...</p> : null}
+          {whatIfResult !== null ? (
+            <p className="mt-3 text-sm text-cyan-300">Predicted new price: ${whatIfResult.toLocaleString()}</p>
+          ) : null}
         </div>
       </section>
     </div>

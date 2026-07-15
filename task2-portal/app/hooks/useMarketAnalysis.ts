@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 const defaultSummary = {
   averagePrice: 412500,
@@ -13,7 +13,7 @@ export function useMarketAnalysis() {
   const [summary, setSummary] = useState(defaultSummary);
   const [loading, setLoading] = useState(false);
 
-  const fetchSummary = async (region = 'all') => {
+  const fetchSummary = useCallback(async (region = 'all') => {
     setLoading(true);
     try {
       const response = await fetch(`/api/java/market?region=${region}`);
@@ -22,16 +22,19 @@ export function useMarketAnalysis() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const predictWhatIf = async (base: Record<string, number>, changes: Record<string, number>) => {
+  const predictWhatIf = useCallback(async (base: Record<string, number>, changes: Record<string, number>) => {
     const adjusted = {
       ...base,
       ...changes,
     };
     const estimated = Math.round(adjusted.bedrooms * 180000 + adjusted.region * 8000 + adjusted.sqft * 120);
     return { newPrice: estimated };
-  };
+  }, []);
 
-  return useMemo(() => ({ summary, loading, fetchSummary, predictWhatIf }), [summary, loading]);
+  return useMemo(
+    () => ({ summary, loading, fetchSummary, predictWhatIf }),
+    [summary, loading, fetchSummary, predictWhatIf]
+  );
 }
