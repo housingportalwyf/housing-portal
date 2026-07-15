@@ -175,6 +175,209 @@
 			"command": "powershell -ExecutionPolicy Bypass -File 'C:\\Users\\wangy\\Documents\\housing-portal\\[REMOVED]'",
 			"isBackground": false,
 			"problemMatcher": []
+		},
+		{
+			"label": "Check gh CLI",
+			"type": "shell",
+			"command": "where gh || echo gh-not-found",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect Git environment",
+			"type": "shell",
+			"command": "$ErrorActionPreference='Stop'; $git = 'C:\\Program Files\\Git\\cmd\\git.exe'; & $git --version; if (Get-Command gh -ErrorAction SilentlyContinue) { Write-Host 'gh-installed' } else { Write-Host 'gh-not-found' }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Install GitHub CLI",
+			"type": "shell",
+			"command": "cmd.exe /c \"winget install --id GitHub.cli -e --source winget --accept-source-agreements --accept-package-agreements\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify gh CLI",
+			"type": "shell",
+			"command": "$ErrorActionPreference='Stop'; if (Get-Command gh -ErrorAction SilentlyContinue) { gh --version } else { Write-Host 'gh-not-found' }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Locate GitHub CLI",
+			"type": "shell",
+			"command": "cmd.exe /c \"where gh\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Find gh executable",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"Get-ChildItem 'C:\\Program Files','C:\\Program Files (x86)' -Filter gh.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Search gh executable",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"Get-ChildItem 'C:\\Program Files' -Filter gh.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Search gh install",
+			"type": "shell",
+			"command": "cmd.exe /c \"dir /s /b \\\"C:\\Users\\wangy\\AppData\\Local\\Programs\\GitHub CLI\\gh.exe\\\" 2>nul || echo not-found\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Find gh path",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"Get-ChildItem -Path 'C:\\Program Files','C:\\Program Files (x86)' -Filter gh.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1 | Format-List *\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check gh in PATH",
+			"type": "shell",
+			"command": "where.exe gh",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Find gh executable",
+			"type": "shell",
+			"command": "cmd.exe /c \"where gh\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Search gh executable",
+			"type": "shell",
+			"command": "cmd.exe /c \"where /r \\\"C:\\Program Files\\GitHub CLI\\\" gh.exe 2>nul || where /r \\\"C:\\Program Files\\\" gh.exe 2>nul || where /r \\\"C:\\Program Files (x86)\\\" gh.exe 2>nul\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check git and gh availability",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"git --version; Get-Command gh -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_.Definition } ; git remote -v\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Locate Git and GH",
+			"type": "shell",
+			"command": "if (Test-Path 'C:\\Program Files\\Git\\cmd\\git.exe') { Write-Output 'GIT_FOUND=C:\\Program Files\\Git\\cmd\\git.exe' } else { Write-Output 'GIT_NOT_FOUND' }; if (Test-Path 'C:\\Program Files\\GitHub CLI\\bin\\gh.exe') { Write-Output 'GH_FOUND=C:\\Program Files\\GitHub CLI\\bin\\gh.exe' } else { Write-Output 'GH_NOT_FOUND' }; if (Get-Command gh -ErrorAction SilentlyContinue) { Write-Output 'GH_ON_PATH' } else { Write-Output 'GH_NOT_ON_PATH' }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect git repository",
+			"type": "shell",
+			"command": "& 'C:\\Program Files\\Git\\cmd\\git.exe' -C 'C:\\Users\\wangy\\Documents\\housing-portal' status --short; & 'C:\\Program Files\\Git\\cmd\\git.exe' -C 'C:\\Users\\wangy\\Documents\\housing-portal' branch --show-current; & 'C:\\Program Files\\Git\\cmd\\git.exe' -C 'C:\\Users\\wangy\\Documents\\housing-portal' remote -v",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Test push and locate gh path",
+			"type": "shell",
+			"command": "$git = 'C:\\Program Files\\Git\\cmd\\git.exe'; if (Test-Path 'C:\\Program Files\\GitHub CLI\\bin\\gh.exe') { Write-Output \"GH_PATH=C:\\Program Files\\GitHub CLI\\bin\\gh.exe\"; & 'C:\\Program Files\\GitHub CLI\\bin\\gh.exe' --version } else { Write-Output 'GH_MISSING' }; & $git -C 'C:\\Users\\wangy\\Documents\\housing-portal' push -u origin main",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Test GitHub remote access",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"$git='C:\\Program Files\\Git\\cmd\\git.exe'; Write-Output 'Testing git ls-remote'; & $git ls-remote https://github.com/[REDACTED-USER]/housing-portal.git 2>&1 | Write-Output; Write-Output 'Testing API access'; Invoke-WebRequest -Uri 'https://api.github.com/repos/[REDACTED-USER]/housing-portal' -UseBasicParsing -ErrorAction SilentlyContinue | Select-Object -ExpandProperty StatusCode\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check Git and search gh",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"Write-Output 'GIT_PATH='; if (Test-Path 'C:\\Program Files\\Git\\cmd\\git.exe') { Write-Output 'C:\\Program Files\\Git\\cmd\\git.exe' } else { Write-Output 'NOT_FOUND' }; Write-Output 'GIT_VERSION='; & 'C:\\Program Files\\Git\\cmd\\git.exe' --version; Write-Output 'SEARCH_GH='; Get-ChildItem -Path 'C:\\Program Files','C:\\Program Files (x86)' -Filter gh.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 5 | ForEach-Object { Write-Output $_.FullName }\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify gh executable and auth status",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"$gh='C:\\Program Files\\GitHub CLI\\gh.exe'; if (Test-Path $gh) { & $gh --version; Write-Output '---'; & $gh auth status } else { Write-Output 'GH_NOT_FOUND' }\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify gh executable path",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"if (Test-Path 'C:\\Program Files\\GitHub CLI\\gh.exe') { & 'C:\\Program Files\\GitHub CLI\\gh.exe' --version; Write-Output '---'; & 'C:\\Program Files\\GitHub CLI\\gh.exe' auth status } else { Write-Output 'GH_NOT_FOUND' }\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify gh installed",
+			"type": "shell",
+			"command": "powershell -NoProfile -Command \"& 'C:\\Program Files\\GitHub CLI\\gh.exe' --version\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Test shell execution",
+			"type": "shell",
+			"command": "cmd.exe /c \"echo hi\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check gh auth status",
+			"type": "shell",
+			"command": "cmd.exe /c \"\\\"C:\\Program Files\\GitHub CLI\\gh.exe\\\" auth status 2>&1\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify gh executable again",
+			"type": "shell",
+			"command": "cmd.exe /c \"\\\"C:\\Program Files\\GitHub CLI\\gh.exe\\\" --version\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run gh auth login",
+			"type": "shell",
+			"command": "& 'C:\\Program Files\\GitHub CLI\\gh.exe' auth login",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run gh auth login web",
+			"type": "shell",
+			"command": "cmd.exe /c \"\"C:\\Program Files\\GitHub CLI\\gh.exe\" auth login --web\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Authenticate GitHub CLI Web",
+			"type": "shell",
+			"command": "cmd.exe /c \"\\\"C:\\Program Files\\GitHub CLI\\gh.exe\\\" auth login --web\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify gh authentication",
+			"type": "shell",
+			"command": "cmd.exe /c \"\\\"C:\\Program Files\\GitHub CLI\\gh.exe\\\" auth status\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run push-to-github script",
+			"type": "shell",
+			"command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"c:\\Users\\wangy\\Documents\\housing-portal\\[REMOVED]\"",
+			"isBackground": false,
+			"problemMatcher": []
 		}
 	]
 }
