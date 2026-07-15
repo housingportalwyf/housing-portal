@@ -1,0 +1,110 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install Git",
+			"type": "shell",
+			"command": "winget install --id Git.Git -e --source winget --accept-source-agreements --accept-package-agreements",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check Git",
+			"type": "shell",
+			"command": "where.exe git; git --version",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Locate Git",
+			"type": "shell",
+			"command": "$paths = @('C:\\Program Files\\Git\\cmd\\git.exe','C:\\Program Files (x86)\\Git\\cmd\\git.exe','C:\\Program Files\\Git\\bin\\git.exe'); foreach ($p in $paths) { if (Test-Path $p) { Write-Host \"FOUND $p\" } }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Initialize Git Repo",
+			"type": "shell",
+			"command": "$git = 'C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git init; & $git add .; & $git commit -m \"Initial commit\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Commit project files",
+			"type": "shell",
+			"command": "$git = 'C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git init; & $git add .gitignore README.md start-demo.bat stop-demo.bat task1-model-api task2-portal; & $git commit -m \"Initial commit\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verify git commands",
+			"type": "shell",
+			"command": "& 'C:\\Program Files\\Git\\cmd\\git.exe' --version; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & 'C:\\Program Files\\Git\\cmd\\git.exe' status --short",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Clean node_modules from git",
+			"type": "shell",
+			"command": "$git = 'C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git rm -r --cached task2-portal/node_modules --ignore-unmatch; & $git add .gitignore README.md start-demo.bat stop-demo.bat task1-model-api task2-portal/app task2-portal/package.json task2-portal/package-lock.json task2-portal/postcss.config.js task2-portal/tailwind.config.ts task2-portal/tsconfig.json task2-portal/next-env.d.ts task2-portal/next.config.js task2-portal/app; & $git commit -m \"Add source files and docs\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Add remote and push",
+			"type": "shell",
+			"command": "$git = 'C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git add .gitignore README.md start-demo.bat stop-demo.bat task1-model-api task2-portal/app task2-portal/package.json task2-portal/package-lock.json task2-portal/postcss.config.js task2-portal/tailwind.config.ts task2-portal/tsconfig.json task2-portal/next-env.d.ts task2-portal/next.config.js; & $git commit -m \"Add source files and docs\"; & $git branch -M main; & $git remote add origin https://github.com/your-username/your-repo.git; & $git push -u origin main",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check git status",
+			"type": "shell",
+			"command": "& 'C:\\Program Files\\Git\\cmd\\git.exe' -C 'C:\\Users\\wangy\\Documents\\housing-portal' status --short",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Create GitHub repo",
+			"type": "shell",
+			"command": "$git = 'C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git add .; & $git commit -m \"Add housing portal demo\"; & $git branch -M main; & $git remote remove origin 2>$null; & $git remote add origin https://github.com/[REDACTED-USER]/housing-portal.git; & $git push -u origin main",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Push to GitHub",
+			"type": "shell",
+			"command": "$git='C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git add .; & $git commit -m \"Add housing portal demo\"; & $git branch -M main; & $git remote remove origin 2>$null; & $git remote add origin 'https://github.com/[REDACTED-USER]/housing-portal.git'; & $git push -u origin main",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Stage and commit separately",
+			"type": "shell",
+			"command": "$git='C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git add .; Write-Host 'staged'; & $git commit -m 'Add housing portal demo'; Write-Host 'committed'",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Configure git identity",
+			"type": "shell",
+			"command": "$git='C:\\Program Files\\Git\\cmd\\git.exe'; & $git config --global user.name '[REDACTED-USER]'; & $git config --global user.email '[REDACTED-USER]@users.noreply.github.com'; & $git config --global --list",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Push to GitHub",
+			"type": "shell",
+			"command": "$git='C:\\Program Files\\Git\\cmd\\git.exe'; Set-Location 'C:\\Users\\wangy\\Documents\\housing-portal'; & $git add .; & $git commit -m 'Add housing portal demo'; & $git branch -M main; & $git remote remove origin 2>$null; & $git remote add origin 'https://github.com/[REDACTED-USER]/housing-portal.git'; & $git push -u origin main",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run GitHub push script",
+			"type": "shell",
+			"command": "powershell -ExecutionPolicy Bypass -File 'C:\\Users\\wangy\\Documents\\housing-portal\\[REMOVED]'",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
