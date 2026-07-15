@@ -161,6 +161,20 @@
 			"command": "powershell -ExecutionPolicy Bypass -File 'C:\\Users\\wangy\\Documents\\housing-portal\\[REMOVED]'",
 			"isBackground": false,
 			"problemMatcher": []
+		},
+		{
+			"label": "Check GitHub CLI",
+			"type": "shell",
+			"command": "& 'C:\\Program Files\\Git\\cmd\\git.exe' --version; if (Get-Command gh -ErrorAction SilentlyContinue) { gh --version } else { Write-Host 'gh not installed' }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run GitHub push script",
+			"type": "shell",
+			"command": "powershell -ExecutionPolicy Bypass -File 'C:\\Users\\wangy\\Documents\\housing-portal\\[REMOVED]'",
+			"isBackground": false,
+			"problemMatcher": []
 		}
 	]
 }
